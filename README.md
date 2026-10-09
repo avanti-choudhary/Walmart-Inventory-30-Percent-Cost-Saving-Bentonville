@@ -15,6 +15,10 @@ Used Window Function LAG() to detect sales drop:
 - Saved: $27,720 (13.96% overall, 30% on slow items)
 - File: data/inventory_cost.csv
 
+
+### Dashboard
+
+![Cost Saving Chart](Dashboard/cost_saving_chart.png)
 ## Tools
 Python Pandas (shift = SQL LAG), SQL, Excel
 
