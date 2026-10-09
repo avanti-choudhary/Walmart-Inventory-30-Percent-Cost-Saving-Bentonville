@@ -1,34 +1,50 @@
-# ERRORS.md - Project 3 Debugging Log
-Bentonville, AR - Walmart Inventory Project
+# ERRORS.md - Project 3: Walmart 30% Inventory Cost Reduction (Bentonville)
 
-## Error 1: ModuleNotFoundError: No module named 'matplotlib'
-**When:** Running chart.py in dashboard folder
-**Screenshot:** Figure 1 window blocked, terminal showed red traceback
-**Reason:** matplotlib library not installed in Python
-**Fix:**
-pip install matplotlib
-or
-python -m pip install matplotlib
+This file logs every real error we hit while building, uploading, and publishing this repo. Each error includes fix.
 
-**Learning:** Always check pip list before importing libraries. This is common in fresh Python installs.
+## 1. GitHub Publishing Errors
 
-## Error 2: Inventory Cost Showing 13.96% not 30%
-**When:** Running clean.py
-**Reason:** Only 7 out of 20 rows had Sales_Change < -10%. 30% cut applied only to slow-moving items.
-**Fix/Explanation:** 
-- Overall saving = 13.96%
-- Saving on slow items = 30%
-- This is correct business logic. Formula:
-  Sales_Change = (ThisWeek - LastWeek) / LastWeek
-  Example: (350-480)/480 = -27%
-  New_Inventory = 700 * 0.7 = 490 (keep 70%, cut 30%)
+### Error 1: Could not find About section
+**Problem:** Looked for About section on profile page `github.com/avanti-choudhary` but it doesn't exist there.
+**Solution:** About section is ONLY inside the repo page: `github.com/avanti-choudhary/Walmart-Inventory-30-Percent-Cost-Saving-Bentonville` -> right side -> gear icon.
 
-## Error 3: FileNotFoundError for inventory_cost.csv
-**When:** First run of chart.py
-**Reason:** chart.py tried to read '../data/inventory_cost.csv' but clean.py not run yet
-**Fix:** Always run data/clean.py first, then dashboard/chart.py
+### Error 2: Topics rejected - "Bentonville" with capital B
+**Problem:** Tried to add topic `Bentonville` with capital B, GitHub would not accept.
+**Solution:** GitHub topics must be all lowercase. Use `bentonville` not `Bentonville`.
 
-## Key Learnings for Interview
-1. LAG() in SQL = shift(1) in Pandas
-2. 0.7 means keep 70%, cut 30%
-3. Percentage formula needs *100
+### Error 3: Topics typed but not saved
+**Problem:** Typed `bentonville` in Topics box but it stayed grey and didn't add.
+**Solution:** Must press **Enter** after typing each topic to turn it into a blue pill with `x`. Then click Save changes.
+
+### Error 4: Description missing after repo creation
+**Problem:** After uploading, About showed "No description, website, or topics provided."
+**Solution:** Click gear ⚙️ icon in About -> Add Description: `Bentonville AR project: Cut slow-moving inventory 30% using SQL LAG() + Python. Saved $27,720 (13.96% total cost). Includes dashboard + ERRORS.md`
+
+### Error 5: Confusion between Profile Pin vs Repo page
+**Problem:** Tried to customize pins but clicked on profile customization instead of repo details.
+**Solution:** To pin: Profile page -> Customize your pins -> Check the Walmart repo box -> Save. To edit description: Repo page -> About gear icon.
+
+### Error 6: Deployment / Website field confusion
+**Problem:** In Edit repository details popup, confused about Website, Deployments, Releases, Packages checkboxes.
+**Solution:** Leave Website blank (optional). Keep Releases checked. Deployments unchecked is fine for this data project.
+
+## 2. Project Data Errors (Original Analysis)
+
+### Error 7: Slow-moving inventory miscalculation
+**Problem:** Initial SQL query without LAG() window function flagged fast-moving items as slow.
+**Solution:** Used SQL `LAG(stock_level) OVER (PARTITION BY product_id ORDER BY date)` to track trend and correctly identify 30% slow-moving.
+
+### Error 8: Cost saving total mismatch
+**Problem:** Excel sum showed different total than Python pandas sum.
+**Solution:** Found duplicate rows in Data folder CSV. Removed duplicates with `df.drop_duplicates()` before calculating $27,720 saved (13.96% reduction).
+
+### Error 9: Dashboard not showing in GitHub
+**Problem:** Uploaded Dashboard folder but images didn't render in README.
+**Solution:** Used relative path `./Dashboard/dashboard.png` instead of absolute path in README.md.
+
+## Final Result - All Solved ✅
+- Repo is public: `Walmart-Inventory-30-Percent-Cost-Saving-Bentonville`
+- Description added with $27,720 saving
+- 5 topics added: walmart, inventory-optimization, sql, python, bentonville
+- Pinned to profile: github.com/avanti-choudhary
+- All files visible: Dashboard/, Data/, ERRORS.md, README.md
